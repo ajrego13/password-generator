@@ -8,27 +8,46 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="wrapper">
-      <header>
-        <h1>Password Generator</h1>
-      </header>
-      <div class="card">
-        <div class="card-header">
-          <h2>Generate a Password</h2>
-        </div>
-        <div class="card-body">
-          <textarea
-            readonly
-            id="password"
-            placeholder="Your Secure Password"
-            aria-label="Generated Password"
-          ></textarea>
-        </div>
-        <div class="card-footer">
-          <button id="generate" class="btn">Generate Password</button>
+    <div class="pw-container">
+      <div class="pw-header">
+        <div class="pw">
+          <span id="pw"></span>
+          <button id="copy">Copy</button>
         </div>
       </div>
-    </div>
+
+      <div class="pw-body">
+
+        <div class="form-control">
+          <label for="len">Password Length</label>
+          <input id="len" type="number" value="" min="2" max="30" />
+        </div>
+
+        <div class="form-control">
+          <label for="upper">Contain Uppercase Letterrs</label>
+          <input id="upper" type="checkbox">
+        </div>
+        
+        <div class="form-control">
+          <label for="lower">Contain Lowercase Letterrs</label>
+          <input id="lower" type="checkbox">
+        </div>
+
+        <div class="form-control">
+          <label for="number">Contain Numbers</label>
+          <input id="number" type="checkbox">
+        </div>
+        
+        <div class="form-control">
+          <label for="symbol">Contain Uppercase Letterrs</label>
+          <input id="symbol" type="checkbox">
+        </div>
+
+        <button class="generate" id="checkbox">
+          Generate Password
+        </button>
+        
+      </div>
     <script src="script.js"></script>
   </body>
 </html>
