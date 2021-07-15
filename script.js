@@ -1,5 +1,5 @@
 // DOM Elements
-let resultEl = document.getElementById("pw"); 
+let resultEl = document.getElementById("paw"); 
 let copyEl = document.getElementById("copy"); 
 let lengthEl = document.getElementById("len"); 
 let uppercaseEl= document.getElementById("upper"); 
@@ -14,13 +14,13 @@ generateEl.addEventListener("click", () => {
   const hasLower = lowercaseEl.checked; 
   const hasUpper = uppercaseEl.checked; 
   const hasNumber = numberEl.checked; 
-  const hasymbols = symbolsEl.checked; 
+  const hasSymbol = symbolsEl.checked; 
 
   resultEl.innerText = generatePassword(
     hasLower, 
     hasUpper, 
     hasNumber, 
-    hasSymbols, 
+    hasSymbol, 
     length
   ); 
 }); 
@@ -35,16 +35,20 @@ function generatePassword(lower, upper, number, symbol, length) {
   let generatedPassword = " "; 
   const typesCount = lower + upper + number + symbol; 
   const typesArr = [{ lower }, { upper }, { number }, { symbol }].filter(item => Object.values(item)[0]); 
-  //console.log("typesArr: ", typesArr); 
-  if(typescount === 0) {
+  //console.log(typesArr); 
+  
+  if(typesCount === 0) {
     return " "; 
   }
+
+
   for(let i = 0; i<length; i += typesCount) {
     typesArr.forEach(type => {
-      const funcName = object.keys[funcName]();
+      const funcName = Object.keys(type)[0];
+      generatedPassword += randomFunc[funcName]();
     });
   }
-  const finalPassword = generatedPassword.clice(0, length); 
+  const finalPassword = generatedPassword.slice(0, length); 
   return finalPassword; 
 }
 
@@ -56,7 +60,7 @@ const randomFunc = {
   symbol: getRandomSymbol
 }; 
 
-console.log(randomFunc); 
+//console.log(randomFunc); 
 // Genetator functions  charset refrence: https://net-comber.com/charset.html
 function getRandomLower() {
   return String.fromCharCode(Math.floor(Math.random() * 26 + 97)); 
