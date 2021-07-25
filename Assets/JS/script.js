@@ -8,6 +8,34 @@ let numberEl = document.getElementById("number");
 let symbolsEl = document.getElementById("symbol"); 
 let generateEl = document.getElementById("generate"); 
 
+// Genetator functions  charset refrence: https://net-comber.com/charset.html
+function getRandomLower() {
+  return String.fromCharCode(Math.floor(Math.random() * 26 + 97)); 
+}
+
+function getRandomUpper() {
+  return String.fromCharCode(Math.floor(Math.random() * 26 + 65)); 
+} 
+
+function getRandomNumber() { 
+  return String.fromCharCode(Math.floor(Math.random() * 10 + 48));
+}
+
+function getRandomSymbol() {
+  const symbols = "`!@#$%^&*(){}[]=/?"
+  return symbols[Math.floor(Math.random() * symbols.length)]; 
+}
+
+// object variable to store values of random generator functions
+const randomFunc = { 
+  lower: getRandomLower, 
+  upper: getRandomUpper, 
+  number: getRandomNumber, 
+  symbol: getRandomSymbol
+}; 
+//console.log(randomFunc); 
+
+
 // Event listener function to get values of DOM elements to use for password
 generateEl.addEventListener("click", () => {
   const length = +lengthEl.value; 
@@ -15,14 +43,9 @@ generateEl.addEventListener("click", () => {
   const hasUpper = uppercaseEl.checked; 
   const hasNumber = numberEl.checked; 
   const hasSymbol = symbolsEl.checked; 
-
-  resultEl.innerText = generatePassword(
-    hasLower, 
-    hasUpper, 
-    hasNumber, 
-    hasSymbol, 
-    length
-  ); 
+  
+  // putting final password into innter text of DOM element to display to the user
+  resultEl.innerText = generatePassword(hasLower, hasUpper, hasNumber, hasSymbol, length); 
 }); 
 
 //Generate password Function
@@ -41,8 +64,7 @@ function generatePassword(lower, upper, number, symbol, length) {
     return " "; 
   }
 
-
-  for(let i = 0; i<length; i += typesCount) {
+  for(let i = 0; i < length; i += typesCount) {
     typesArr.forEach(type => {
       const funcName = Object.keys(type)[0];
       generatedPassword += randomFunc[funcName]();
@@ -52,29 +74,5 @@ function generatePassword(lower, upper, number, symbol, length) {
   return finalPassword; 
 }
 
-// object variable to store values of random generator functions
-const randomFunc = { 
-  lower: getRandomLower, 
-  upper: getRandomUpper, 
-  number: getRandomNumber, 
-  symbol: getRandomSymbol
-}; 
 
-//console.log(randomFunc); 
-// Genetator functions  charset refrence: https://net-comber.com/charset.html
-function getRandomLower() {
-  return String.fromCharCode(Math.floor(Math.random() * 26 + 97)); 
-}
 
-function getRandomUpper() {
-  return String.fromCharCode(Math.floor(Math.random() * 26 + 65)); 
-} 
-
-function getRandomNumber() { 
-  return String.fromCharCode(Math.floor(Math.random() * 10 + 48));
-}
-
-function getRandomSymbol() {
-  const symbols = "`!@#$%^&*(){}[]=/?"
-  return symbols[Math.floor(Math.random() * symbols.length)]; 
-}
