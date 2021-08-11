@@ -1,1 +1,1 @@
-# password-generator
+This is a password generator to generate a random password for you! you can choose to include upper and lower case letters as well as special characters. 
