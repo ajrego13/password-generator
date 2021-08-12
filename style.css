@@ -5,74 +5,79 @@
 }
 
 body {
-  background-color: grey;
+ 
   color: white;
-  display: flex;
-  align-items: center;
+ 
+ 
   justify-content: center;
   font-family: Poppins, sans-serif;
-  margin: 0;
-  min-height: 100vh;
+
+}
+#copy {
+  background-color: #e7e7e7;
+  font-size: 20px;
+  padding: 14px 40px;
+  border-radius: 15px;
+  margin-left: 10px;
+  margin-bottom: 10px;
 }
 
-.pw-container {
-  background-color: rgba(4, 128, 0, 0.795);
-  box-shadow: 0 4px 10px black;
-  min-width: 400px;
+#wrapper {
+  background-color: #F5F5F5;
+    margin-left: 15%;
+    padding-bottom: 50px;
+    padding-top: 30px;
+    margin-top: 30px;
+    width: 980px;
 }
 
-.pw {
-  display: flex;
-  font-size: 1.5rem;
-  align-items: center;
-  height: 75px;
-  width: 100%;
-  position: relative;
-  padding: 1rem;
-  overflow: auto;
+#btn {
+  margin-top: 20px; 
 }
 
-.pw button {
-  background-color: white;
-  border: none; 
-  color: black;
-  cursor: pointer;
-  font-family: inherit;
+h1 {
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 45px;
+  font-size: 2em;
+  font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
   font-weight: bold;
-  padding: 0.25rem;
-  position: absolute;
-  top: 0;
-  right: 0;
-  transform: translate(0, 25%);
-  transition: opacity 0.2 ease, transform 0.2 ease;
-  opacity: 0; 
+}
+#content {
+  margin-left: 10%;
+  margin-right: 10%;
+  background-color: #FFFFFF;
+  box-shadow: 5px 10px 18px #888888;
+
 }
 
-.pw:hover button {
-  opacity: 1;
-  transform: translate(o, 0%); 
+textarea {
+  padding: 10%;
+  border: dashed 1px gray;
+  margin-left: 10%;
+  padding-left: 15%;
+  padding-right: 15%;
+  width: 50%;
+  font-family: "Lucida Console", Monaco, monospace;
+  text-align: center;
+  color: #696969;
+  font-size: 18px;
 }
-
-.pw-body {
-  padding: 0 1rem 1 rem; 
-}
-
-.form-control {
-  color: wheat; 
-  display: flex;
-  justify-content: space-between;
-  margin: 0.75rem;
-}
-
-.generate {
-  background-color: yellow;
-  border: none;
-  color: purple;
-  cursor: pointer;
-  display: block; 
-  font-size: 1.5rem;
+h2 {
+  margin-left: 20px;
+  padding-top: 10px;
+  margin-bottom: 10px;
+  font-size: 1.5em;
+  font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
   font-weight: bold;
-  padding: 0.75rem;
-  margin-top: 1rem;
-  width: 100%;
 }
+
+#generate {
+  background-color: #f44336;
+  font-size: 20px;
+  padding: 14px 40px;
+  border-radius: 15px;
+  margin-left: 18%;
+  margin-bottom: 10px;
+}
+
