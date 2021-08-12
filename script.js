@@ -1,78 +1,137 @@
-// DOM Elements
-let resultEl = document.getElementById("paw"); 
-let copyEl = document.getElementById("copy"); 
-let lengthEl = document.getElementById("len"); 
-let uppercaseEl= document.getElementById("upper"); 
-let lowercaseEl = document.getElementById("lower"); 
-let numberEl = document.getElementById("number"); 
-let symbolsEl = document.getElementById("symbol"); 
-let generateEl = document.getElementById("generate"); 
 
-// Genetator functions  charset refrence: https://net-comber.com/charset.html
-function getRandomLower() {
-  return String.fromCharCode(Math.floor(Math.random() * 26 + 97)); 
-}
+// DOM variables: 
+var enter;
+var confirmNumber;
+var confirmCharacter;
+var confirmUppercase;
+var confirmLowercase;
 
-function getRandomUpper() {
-  return String.fromCharCode(Math.floor(Math.random() * 26 + 65)); 
-} 
+// Special characters 
+character = ["!", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", "\:", "\;", " < ", "=", " > ", " ? ", "@", "[", "\\", "]", " ^ ", "_", "`", "{", "|", "}", "~"];
+// Numeric characters
+number = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+// Alphabetical characters
+alpha = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+space = [];
+// Choices declared outside the if statement so they can be concatenated upon condition
+var choices;
 
-function getRandomNumber() { 
-  return String.fromCharCode(Math.floor(Math.random() * 10 + 48));
-}
+var toUpper = function (x) {
+    return x.toUpperCase();
+};
 
-function getRandomSymbol() {
-  const symbols = "`!@#$%^&*(){}[]=/?"
-  return symbols[Math.floor(Math.random() * symbols.length)]; 
-}
+alpha2 = alpha.map(toUpper);
 
-// object variable to store values of random generator functions
-const randomFunc = { 
-  lower: getRandomLower, 
-  upper: getRandomUpper, 
-  number: getRandomNumber, 
-  symbol: getRandomSymbol
-}; 
-//console.log(randomFunc); 
+var get = document.querySelector("#generate");
 
+get.addEventListener("click", function () {
+    ps = generatePassword();
+    document.getElementById("password").placeholder = ps;
+});
 
-// Event listener function to get values of DOM elements to use for password
-generateEl.addEventListener("click", () => {
-  const length = +lengthEl.value; 
-  const hasLower = lowercaseEl.checked; 
-  const hasUpper = uppercaseEl.checked; 
-  const hasNumber = numberEl.checked; 
-  const hasSymbol = symbolsEl.checked; 
+// Start function to generate password
+function generatePassword() {
   
-  // putting final password into innter text of DOM element to display to the user
-  resultEl.innerText = generatePassword(hasLower, hasUpper, hasNumber, hasSymbol, length); 
-}); 
+    enter = parseInt(prompt("How many characters would you like your password? Choose between 8 and 128"));
+    
+    if (!enter) {
+        alert("This needs a value");
+    } else if (enter < 8 || enter > 128) {
+        
+      
+        enter = parseInt(prompt("You must choose between 8 and 128"));
 
-//Generate password Function
-function generatePassword(lower, upper, number, symbol, length) {
-  // 1. init pw var 
-  // 2. Filter out unchecked types
-  // 3. loop over length call a generator function for each type 
-  // 4. add final password to the pw var and return 
+    } else {
+        // user validation
+        confirmNumber = confirm("Will this contain numbers?");
+        confirmCharacter = confirm("Will this contain special characters?");
+        confirmUppercase = confirm("Will this contain Uppercase letters?");
+        confirmLowercase = confirm("Will this contain Lowercase letters?");
+    };
 
-  let generatedPassword = " "; 
-  const typesCount = lower + upper + number + symbol; 
-  const typesArr = [{ lower }, { upper }, { number }, { symbol }].filter(item => Object.values(item)[0]); 
-  //console.log(typesArr); 
   
-  if(typesCount === 0) {
-    return " "; 
-  }
+    if (!confirmCharacter && !confirmNumber && !confirmUppercase && !confirmLowercase) {
+        choices = alert("You must choose a criteria!");
 
-  for(let i = 0; i < length; i += typesCount) {
-    typesArr.forEach(type => {
-      const funcName = Object.keys(type)[0];
-      generatedPassword += randomFunc[funcName]();
-    });
-  }
-  const finalPassword = generatedPassword.slice(0, length); 
-  return finalPassword; 
+    }
+    
+    else if (confirmCharacter && confirmNumber && confirmUppercase && confirmLowercase) {
+
+        choices = character.concat(number, alpha, alpha2);
+    }
+   
+    else if (confirmCharacter && confirmNumber && confirmUppercase) {
+        choices = character.concat(number, alpha2);
+    }
+    else if (confirmCharacter && confirmNumber && confirmLowercase) {
+        choices = character.concat(number, alpha);
+    }
+    else if (confirmCharacter && confirmLowercase && confirmUppercase) {
+        choices = character.concat(alpha, alpha2);
+    }
+    else if (confirmNumber && confirmLowercase && confirmUppercase) {
+        choices = number.concat(alpha, alpha2);
+    }
+    
+    else if (confirmCharacter && confirmNumber) {
+        choices = character.concat(number);
+
+    } else if (confirmCharacter && confirmLowercase) {
+        choices = character.concat(alpha);
+
+    } else if (confirmCharacter && confirmUppercase) {
+        choices = character.concat(alpha2);
+    }
+    else if (confirmLowercase && confirmNumber) {
+        choices = alpha.concat(number);
+
+    } else if (confirmLowercase && confirmUppercase) {
+        choices = alpha.concat(alpha2);
+
+    } else if (confirmNumber && confirmUppercase) {
+        choices = number.concat(alpha2);
+    }
+  
+    else if (confirmCharacter) {
+        choices = character;
+    }
+    else if (confirmNumber) {
+        choices = number;
+    }
+    else if (confirmLowercase) {
+        choices = alpha;
+    }
+  
+    else if (confirmUppercase) {
+        choices = space.concat(alpha2);
+    };
+
+  
+    var password = [];
+
+   
+    for (var i = 0; i < enter; i++) {
+        var pickChoices = choices[Math.floor(Math.random() * choices.length)];
+        password.push(pickChoices);
+    }
+    // This joins the password array and converts it to a string
+   
+    var ps = password.join("");
+    UserInput(ps);
+    return ps;
+}
+function copyPassword() {
+    document.getElementById("password").select();
+    document.execCommand("Copy");
+    alert("Password copied to clipboard!");
+}
+function UserInput(ps) {
+    document.getElementById("password").textContent = ps;
+
 }
 
-
+var copy = document.querySelector("#copy");
+copy.addEventListener("click", function () {
+    copyPassword();
+});
 
